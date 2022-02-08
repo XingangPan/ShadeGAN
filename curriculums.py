@@ -89,9 +89,9 @@ def extract_metadata(curriculum, current_step):
 
 CelebA_piGAN = {
     0: {'batch_size': 13*2, 'num_steps': 12, 'img_size': 32, 'batch_split': 1, 'gen_lr': 2e-5, 'disc_lr': 2e-4},
-    int(30e3): {'batch_size': 8*2, 'num_steps': 5, 'img_size': 64, 'batch_split': 2, 'gen_lr': 2e-5, 'disc_lr': 2e-4},
-    int(70e3): {'batch_size': 8*2, 'num_steps': 5, 'img_size': 64, 'batch_split': 2, 'gen_lr': 1e-5, 'disc_lr': 1e-4},
-    int(100e3): {'batch_size': 2*2, 'num_steps': 4, 'img_size': 128, 'batch_split': 2, 'gen_lr': 2e-6, 'disc_lr': 2e-5},
+    int(30e3): {'batch_size': 8*2, 'num_steps': 12, 'img_size': 64, 'batch_split': 2, 'gen_lr': 2e-5, 'disc_lr': 2e-4},
+    int(70e3): {'batch_size': 8*2, 'num_steps': 12, 'img_size': 64, 'batch_split': 2, 'gen_lr': 1e-5, 'disc_lr': 1e-4},
+    int(100e3): {'batch_size': 2*2, 'num_steps': 12, 'img_size': 128, 'batch_split': 2, 'gen_lr': 2e-6, 'disc_lr': 2e-5},
     int(150e3): {},
 
     'dataset_path': '/path/to/dataset/*.jpg',
@@ -131,9 +131,9 @@ CelebA_piGAN = {
 
 CelebA_ShadeGAN_noview = {
     0: {'batch_size': 13*2, 'num_steps': 12, 'img_size': 32, 'batch_split': 1, 'gen_lr': 2e-5, 'disc_lr': 2e-4},
-    int(30e3): {'batch_size': 8*2, 'num_steps': 5, 'img_size': 64, 'batch_split': 2, 'gen_lr': 2e-5, 'disc_lr': 2e-4},
-    int(70e3): {'batch_size': 8*2, 'num_steps': 5, 'img_size': 64, 'batch_split': 2, 'gen_lr': 1e-5, 'disc_lr': 1e-4},
-    int(100e3): {'batch_size': 2*2, 'num_steps': 4, 'img_size': 128, 'batch_split': 2, 'gen_lr': 2e-6, 'disc_lr': 2e-5},
+    int(30e3): {'batch_size': 8*2, 'num_steps': 12, 'img_size': 64, 'batch_split': 2, 'gen_lr': 2e-5, 'disc_lr': 2e-4},
+    int(70e3): {'batch_size': 8*2, 'num_steps': 12, 'img_size': 64, 'batch_split': 2, 'gen_lr': 1e-5, 'disc_lr': 1e-4},
+    int(100e3): {'batch_size': 2*2, 'num_steps': 12, 'img_size': 128, 'batch_split': 2, 'gen_lr': 2e-6, 'disc_lr': 2e-5},
     int(150e3): {},
 
     'dataset_path': '/path/to/dataset/*.jpg',
@@ -178,9 +178,9 @@ CelebA_ShadeGAN_noview = {
 
 CelebA_ShadeGAN_view = {
     0: {'batch_size': 13*2, 'num_steps': 12, 'img_size': 32, 'batch_split': 1, 'gen_lr': 2e-5, 'disc_lr': 2e-4},
-    int(30e3): {'batch_size': 8*2, 'num_steps': 5, 'img_size': 64, 'batch_split': 2, 'gen_lr': 2e-5, 'disc_lr': 2e-4},
-    int(70e3): {'batch_size': 8*2, 'num_steps': 5, 'img_size': 64, 'batch_split': 2, 'gen_lr': 1e-5, 'disc_lr': 1e-4},
-    int(100e3): {'batch_size': 2*2, 'num_steps': 4, 'img_size': 128, 'batch_split': 2, 'gen_lr': 2e-6, 'disc_lr': 2e-5},
+    int(30e3): {'batch_size': 8*2, 'num_steps': 12, 'img_size': 64, 'batch_split': 2, 'gen_lr': 2e-5, 'disc_lr': 2e-4},
+    int(70e3): {'batch_size': 8*2, 'num_steps': 12, 'img_size': 64, 'batch_split': 2, 'gen_lr': 1e-5, 'disc_lr': 1e-4},
+    int(100e3): {'batch_size': 2*2, 'num_steps': 12, 'img_size': 128, 'batch_split': 2, 'gen_lr': 2e-6, 'disc_lr': 2e-5},
     int(150e3): {},
 
     'dataset_path': '/path/to/dataset/*.jpg',
