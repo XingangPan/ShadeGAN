@@ -168,6 +168,7 @@ if __name__ == '__main__':
     parser.add_argument('--delta', type=float, default=0.0325)
     parser.add_argument('--ema', action='store_true')
     parser.add_argument('--num_steps', type=int, default=12)
+    parser.add_argument('--crop', action='store_true')
     opt = parser.parse_args()
     
     os.makedirs(opt.output_dir, exist_ok=True)
@@ -228,7 +229,7 @@ if __name__ == '__main__':
     for i, line in enumerate(img_list.readlines()):
         im_name = line.split()[0]
         im_path = os.path.join(opt.root, im_name)
-        img = load_image(im_path, image_size=128)  # use crop=True for cropping celeba aligned images
+        img = load_image(im_path, image_size=128, crop=opt.crop)  # use crop=True for cropping celeba aligned images
         im_name = im_name.split('.')[0]
         
         with torch.no_grad():
