@@ -334,7 +334,9 @@ class ImplicitGenerator3d(nn.Module):
                 pitch, yaw = pose[:,:1], pose[:,1:2]
                 camera_origin = pose2origin(self.device, pitch, yaw, batch_size, 1)
             if self.surf_track:
-                pred = self.surfacenet(torch.cat([z, pitch, yaw], -1))
+                pose_scaled = (torch.cat([pitch, yaw], -1) - math.pi/2) * 10
+                freq_phase = torch.cat([truncated_frequencies, truncated_phase_shifts], -1)/10
+                pred = self.surfacenet(freq_phase, pose_scaled)
                 if pred.size(2) > img_size:
                     pred = F.interpolate(pred, img_size, mode='area')
                 elif pred.size(2) < img_size:
@@ -431,7 +433,7 @@ class ImplicitGenerator3d(nn.Module):
 
             results = fancy_integration(all_outputs, all_z_vals, device=self.device, white_back=kwargs.get('white_back', False), clamp_mode = kwargs['clamp_mode'], last_back=kwargs.get('last_back', False), fill_mode=kwargs.get('fill_mode', None), noise_std=kwargs['nerf_noise'])
             if self.shading:
-                results = self.lambertian_shading(l, results, l_ratio=l_ratio)
+                results = self.lambertian_shading(results, l, l_ratio=l_ratio)
             for k in ['rgb', 'rgb_refer', 'albedo']:
                 if k in results:
                     results[k] = results[k].reshape(batch_size, img_size, img_size, 3)

@@ -166,10 +166,12 @@ class ProgressiveEncoderDiscriminator(nn.Module):
     Identical to ProgressiveDiscriminator except it also predicts camera angles and latent codes.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, inversion=False, **kwargs):
         super().__init__()
         self.epoch = 0
         self.step = 0
+        self.inversion = inversion
+        
         self.layers = nn.ModuleList(
         [
             ResidualCoordConvBlock(16, 32, downsample=True),   # 512x512 -> 256x256
@@ -195,8 +197,9 @@ class ProgressiveEncoderDiscriminator(nn.Module):
             AdapterBlock(400)
         ])
         self.final_layer = nn.Conv2d(400, 1 + 256 + 2, 2)
+        if self.inversion:
+            self.encode_layer = nn.Conv2d(400, 4 + 2304 + 2304, 2) # used for GAN inversion
         self.img_size_to_layer = {2:8, 4:7, 8:6, 16:5, 32:4, 64:3, 128:2, 256:1, 512:0}
-
 
     def forward(self, input, alpha, instance_noise=0, **kwargs):
         if instance_noise > 0:
@@ -209,10 +212,13 @@ class ProgressiveEncoderDiscriminator(nn.Module):
                 x = alpha * x + (1 - alpha) * self.fromRGB[start+1](F.interpolate(input, scale_factor=0.5, mode='nearest'))
             x = layer(x)
 
-        x = self.final_layer(x).reshape(x.shape[0], -1)
+        output = self.final_layer(x).reshape(x.shape[0], -1)
 
-        prediction = x[..., 0:1]
-        latent = x[..., 1:257]
-        position = x[..., 257:259]
-
+        prediction = output[..., 0:1]
+        latent = output[..., 1:257]
+        position = output[..., 257:259]
+        if self.inversion:
+            code = self.encode_layer(x).reshape(x.shape[0], -1)
+            light, freq, phase = torch.split(code, [4, 2304, 2304], dim=-1)
+            return prediction, latent, position, light, freq, phase
         return prediction, latent, position

@@ -45,11 +45,10 @@ def kaiming_leaky_init(m):
     if classname.find('Linear') != -1:
         torch.nn.init.kaiming_normal_(m.weight, a=0.2, mode='fan_in', nonlinearity='leaky_relu')
 
+
 class CustomMappingNetwork(nn.Module):
     def __init__(self, z_dim, map_hidden_dim, map_output_dim):
         super().__init__()
-
-
 
         self.network = nn.Sequential(nn.Linear(z_dim, map_hidden_dim),
                                      nn.LeakyReLU(0.2, inplace=True),
