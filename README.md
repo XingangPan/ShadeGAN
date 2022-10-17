@@ -93,7 +93,7 @@ If you find our work useful in your research, please cite:
 @inproceedings{pan2021shadegan,
     title   = {A Shading-Guided Generative Implicit Model for Shape-Accurate 3D-Aware Image Synthesis},
     author  = {Pan, Xingang and Xu, Xudong and Loy, Chen Change and Theobalt, Christian and Dai, Bo},
-    booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+    booktitle = {Advances in Neural Information Processing Systems},
     year    = {2021}
 }
 ```
